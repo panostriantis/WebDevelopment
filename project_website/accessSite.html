@@ -1,0 +1,297 @@
+﻿<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+<style>
+html{
+	height:100%;
+}
+body {
+
+	background: url("aget.png") no-repeat fixed center;
+	background-size: cover;
+	background-color: #cccccc;
+	z-index:-1;
+	}
+.fullscr{
+	height:100%;
+	width:100%;
+}
+h3{
+	color:black;
+	font-family: "Times New Roman", Times, serif;
+}
+/* Full-width input fields */
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+/*input type buttons*/
+input[type=button] {
+	background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+/* Set a style for all buttons */
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+/* Extra styles for the cancel button */
+.cancelbtn {
+    width: auto;
+    padding: 10px 18px;
+    background-color: #f44336;
+}
+
+.linkbtn{
+	width: auto;
+	padding: 10px 18px;
+	background-color: grey;
+}
+
+/* position the close button */
+.imgcontainer {
+    text-align: center;
+    margin: 24px 0 12px 0;
+    position: relative;
+}
+
+.container {
+    padding: 16px;
+}
+
+span.psw {
+    float: right;
+    padding-top: 16px;
+}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    padding-top: 60px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+    width: 40%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button (x) */
+.close {
+    position: absolute;
+    right: 25px;
+    top: 0;
+    color: #000;
+    font-size: 35px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: red;
+    cursor: pointer;
+}
+
+/* Add Zoom Animation */
+.animate {
+    -webkit-animation: animatezoom 0.6s;
+    animation: animatezoom 0.6s
+}
+
+@-webkit-keyframes animatezoom {
+    from {-webkit-transform: scale(0)} 
+    to {-webkit-transform: scale(1)}
+}
+    
+@keyframes animatezoom {
+    from {transform: scale(0)} 
+    to {transform: scale(1)}
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+    span.psw {
+       display: block;
+       float: none;
+    }
+    .cancelbtn {
+       width: 10%;
+    }
+}
+</style>
+
+<body>
+
+<div style="position:absolute; left:0; top:30%; width:100%; text-align:center;">
+<h2>Συνδεση</h2>
+<button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Σύνδεση</button>
+</div>
+<div id="id01" class="modal">
+  <form name="login" class="modal-content animate" method="POST" action="/panos/teleutaia_script/systemSite.html" onSubmit="return logIn(this.form)">
+    <div class="imgcontainer">
+      <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">×</span>
+    </div>
+	<div class="container">
+      <label><b>Email</b></label>
+      <input type="text" placeholder="Email - Υποχρωτικο Πεδιο" name="email" required>
+      <label><b>Κωδικός</b></label>
+      <input type="password" placeholder="Κωδικος - Υποχρεωτικο Πεδιο" name="psw" required>
+	  <div class="clearfix">
+		<button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Άκυρο</button>
+		<button type="Submit">Σύνδεση</button>
+	  </div>
+	</div>
+  </form>
+</div>
+
+<div style="position:absolute; left:0; top:50%; width:100%; text-align:center;">
+<h2>Εγγραφη</h2>
+<button onclick="document.getElementById('id02').style.display='block'" style="width:auto;">Εγγραφή</button>
+</div>
+<div id="id02" class="modal">
+  <form autocomplete="off" name = "signup" class="modal-content animate">
+    <div class="imgcontainer">
+	  <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">×</span>
+    </div>
+    <div class="container">
+      <label><b>Email</b></label>	
+      <input type="text" placeholder="Εισαγετε Email - Υποχρεωτικο Πεδιο" name="email" required>
+
+      <label><b>Κωδικός</b></label>
+      <input type="password" placeholder="Εισαγετε Κωδικο - Υποχρεωτικο Πεδιο" name="psw" required>
+
+      <label><b>Επανάληψη Κωδικού</b></label>
+      <input type="password" placeholder="Επαναληψη Κωδικου - Υποχρεωτικο Πεδιο" name="psw_repeat" required>
+      <div class="clearfix">
+        <button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">Άκυρο</button>
+        <button type="button" onclick="signUp(this.form)">Εγγραφή</button>
+      </div>
+    </div>
+  </form>
+</div>
+</body>
+<script>
+window.onclick = function(event) {
+    if (event.target == document.getElementById('id01')){
+        document.getElementById('id01').style.display = "none";
+    } else if (event.target == document.getElementById('id02')){
+		document.getElementById('id02').style.display = "none";
+	}
+}
+window.onload = function(){
+	window.localStorage.clear();
+}
+
+function logIn()
+{
+	var mail = login.email.value;
+	var pass = login.psw.value;
+	var log = "active";
+	var succ = true;
+	var params = "email="+mail+"&psw="+pass+"&login="+log;
+	var xmlhttp = new XMLHttpRequest();
+	xmlhttp.onreadystatechange = function() {
+		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+			var resEmail;
+			var resAPIkey;
+			var res;
+			var resPawd;
+			var priv;
+			res = JSON.parse(xmlhttp.responseText);
+			resEmail = res.email;
+			window.localStorage.resEmail = resEmail;
+			resPawd = res.password;
+			window.localStorage.resPawd = resPawd;
+			resPriv = res.privileges;
+			window.localStorage.resPriv = resPriv;
+			resAPIkey = res.APIkey;
+			window.localStorage.APIkey = resAPIkey;
+			if (resEmail == "undefined"){
+				succ = false;
+				alert("Αγνωστο mail, Αν δεν ειστε εγγεγραμενος χρηστης, εγγραφειτε!");
+				login.reset();
+				return(succ);
+			}
+			if (resPawd == "undefined"){
+				succ = false;
+				alert("Λαθος Κωδικος. Προσπαθήστε Ξανά!");
+				login.psw.value = login.psw.defaultValue;
+				return(succ);
+			}
+		}
+	};
+	xmlhttp.open("POST", "http://localhost/panos/teleutaia_script/systemServer.php", false);
+	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xmlhttp.send(params);
+	return succ;
+}
+
+function signUp()
+{
+	var email = signup.email.value;
+	var pass = signup.psw.value;
+	var pass_repeat = signup.psw_repeat.value;
+	var sign = "active";
+	var success;
+	if (pass !== pass_repeat){
+		alert("Ο κωδικος στο πεδιο 'Επαναληψη Κωδικου' δε συμβαδιζει με το κωδικο στο πεδιο 'Κωδικος' \n Παρακαλουμε συμπληρωστε παλι.");
+		signup.psw.value = signup.psw.defaultValue;
+		signup.psw_repeat.value = signup.psw_repeat.defaultValue;
+		return false;
+	} else {
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.onreadystatechange = function() {
+			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+				success = JSON.parse(xmlhttp.responseText);
+			}
+		}
+		var params = "email="+email+"&psw="+pass+"&signup="+sign;
+		xmlhttp.open("POST", "http://localhost/panos/teleutaia_script/systemServer.php", false);
+		xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		xmlhttp.send(params);
+		if (success.signup === "success"){
+			alert(" Επιτυχής Εγγραφή Στο Σύστημα.\n Συνδεθείτε Για Να Πληροφορηθείτε To APIkey Που Σας Καταχωρήθηκε Και Να Χρησιμοποιήσετε Τις Υπηρεσίες Μας.\n Ευχαριστούμε!");
+			document.getElementById('id02').style.display='none';
+			signup.reset();
+		} else if(success.signup === "failed"){
+			alert("Υπάρχει Ήδη Χρήστης Με Αυτο Το mail");
+			signup.reset();
+			return false;
+		}
+	}
+}
+
+</script>
+
+</html>

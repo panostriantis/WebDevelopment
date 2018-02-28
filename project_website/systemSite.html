@@ -1,0 +1,964 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head id = "userhead">
+<style>
+
+h1 {
+	color: black;
+	font-size: 25px;
+}
+table {
+	width: 50%;
+	position:absolute;
+	left:25%;
+	top:30%;
+	text-align:left;
+	border-collapse: collapse;
+}
+table.table2{
+	width: 40%;
+	position:absolute;
+	left:60%;
+	top:10%;
+	text-align:left;
+	border-collapse: collapse;
+}
+table, td, th {
+	border: 1px solid grey;
+    border-collapse: collapse;
+    padding: 4px;
+}
+table tr:nth-child(odd){
+	background-color: lightgreen;
+	}
+table tr:nth-child(even){
+	background-color: lightyellow;
+	}
+h1 {text-align: center;}
+th {text-align: left;}
+td {text-align: left;}
+html{
+	height:100%;
+}
+body {
+	background: url("aget.png") no-repeat fixed center;
+	background-size: cover;
+	background-color: #cccccc;
+	z-index:-1;
+	}
+.fullscr{
+	height:100%;
+	width:100%;
+}
+h3{
+	color:black;
+	font-family: "Times New Roman", Times, serif;
+}
+/* Full-width input fields */
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+/*input type buttons*/
+input[type=button] {
+	background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+/* Set a style for all buttons */
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+/* Extra styles for the cancel button */
+.cancelbtn {
+    width: auto;
+    padding: 10px 18px;
+    background-color: #f44336;
+}
+
+.linkbtn{
+	width: auto;
+	padding: 10px 18px;
+	background-color: grey;
+}
+
+/* position the close button */
+.imgcontainer {
+    text-align: center;
+    margin: 24px 0 12px 0;
+    position: relative;
+}
+
+.container {
+    padding: 16px;
+}
+
+.container2 {
+    padding: 40%;
+}
+
+span.psw {
+    float: right;
+    padding-top: 16px;
+}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    padding-top: 60px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+    width: 40%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button (x) */
+.close {
+    position: absolute;
+    right: 25px;
+    top: 0;
+    color: #000;
+    font-size: 35px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: red;
+    cursor: pointer;
+}
+
+/* Add Zoom Animation */
+.animate {
+    -webkit-animation: animatezoom 0.6s;
+    animation: animatezoom 0.6s
+}
+
+@-webkit-keyframes animatezoom {
+    from {-webkit-transform: scale(0)} 
+    to {-webkit-transform: scale(1)}
+}
+    
+@keyframes animatezoom {
+    from {transform: scale(0)} 
+    to {transform: scale(1)}
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+    span.psw {
+       display: block;
+       float: none;
+    }
+    .cancelbtn {
+       width: 10%;
+    }
+}
+div#googleMap{
+	width:auto;
+	height:auto;
+	position:fixed;
+}
+div#googleMap2{
+	width:auto;
+	height:auto;
+	position:fixed;
+}
+div#googleMap3{
+	width:auto;
+	height:auto;
+	position:fixed;
+}
+</style>
+</head>
+<meta charset="UTF-8">
+<h1 id="tabel" style="position:absolute; font-size:28px; left:38%; top:0; padding:14px;" onclick="document.getElementById('tabel').style.display='none'"></h1>
+
+<script>
+
+window.onload = function(){
+	var checking;
+	var checkPage = window.localStorage.resPriv;
+	checkPage=="user" ? checking="Χρήστη" : checking ="Διαχειριστή";
+	document.getElementById("tabel").innerHTML=("Καλώς Ήρθες "+checking);
+	setTimeout(function(){
+	document.getElementById("tabel").style.display = 'none';
+	},5000);
+	document.getElementById("userPage").style.display='none';
+	document.getElementById("adminPage").style.display='none';
+
+	if(checkPage == "admin"){
+		document.getElementById("adminPage").style.display='block';
+	} else if(checkPage == "user"){
+		document.getElementById("userPage").style.display='block';
+	} else {
+		alert("Δεν Υπαρχει Ενεργη Περιοδος Συνδεσης");
+		window.location = 'http://localhost/panos/teleutaia_script/accessSite.html'; 
+	}
+}
+</script>
+
+<div id = "adminPage">
+	<script>
+	window.onclick = function(event) {
+		if (event.target == document.getElementById('addSt')){
+			newStation.reset();
+			cntClks=0;
+			document.getElementById('addSt').style.display="none";
+			document.getElementById('googleMap').style.display="none";
+		} else if(event.target == document.getElementById('remSt')){
+			delStation.reset();
+			cntClks2=0;
+			document.getElementById('remSt').style.display="none";
+			document.getElementById('googleMap2').style.display="none";
+		} else if(event.target == document.getElementById('divUpload')){
+			upldData.reset();
+			cntClks3=0;
+			document.getElementById('divUpload').style.display="none";
+			document.getElementById('googleMap3').style.display="none";
+		} else if (event.target == document.getElementById('id01')){
+			document.getElementById('id01').style.display = "none";
+		} else if (event.target == document.getElementById('id02')){
+			form1.reset();
+			document.getElementById('id02').style.display = "none";
+		} else if (event.target == document.getElementById('id03')){
+			form2.reset();
+			document.getElementById('id03').style.display = "none";
+		}
+	}
+	
+	var cntClks=0;
+	var latitude;
+	var longitude;
+	function addStation(){
+		document.getElementById('addSt').style.display='none';
+		document.getElementById('googleMap').style.display='none';
+		cntClks=0;
+		var resAPIkey = window.localStorage.APIkey;
+		var addstation = "active";
+	//	newStation.reset()
+		var newStat = newStation.onoma_stathmou.value;
+		var newStationId = newStation.id_stathmou.value;
+		var location = newStation.latit.value+", "+newStation.longi.value;
+		var params = "addstation="+addstation+"&APIkey="+resAPIkey+"&stathmosName="+newStat+"&stathmosId="+newStationId+"&stathmosLocation="+location;
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.onreadystatechange = function(){
+			if(xmlhttp.readyState == 4 && xmlhttp.status == 200){
+				checkAddSuccess(xmlhttp.responseText)
+			}
+		};
+		xmlhttp.open('POST', "http://localhost/panos/teleutaia_script/systemServer.php", true);
+		xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		xmlhttp.send(params);
+		newStation.reset();
+		
+	}
+	function newF(){
+		cntClks++;
+		if(cntClks%2==1){
+		var myCenter=new google.maps.LatLng(37.967, 23.717);
+		var map = {center:myCenter, zoom:6, mapTypeId:google.maps.MapTypeId.ROADMAP};
+		var map = new google.maps.Map(document.getElementById("googleMap"),map);
+		google.maps.event.addListener(map,"click",function(event){
+			latitude = event.latLng.lat().toFixed(4);
+			longitude = event.latLng.lng().toFixed(4);
+			newStation.latit.value = latitude;
+			newStation.longi.value = longitude;
+		});
+		document.getElementById('googleMap').style.display='block';
+		} else{
+			document.getElementById('googleMap').style.display='none';
+		}
+	}
+	function checkAddSuccess(response){
+		if(response=="success"){
+			alert("Ο Σταθμός Προστέθηκε Επιτυχώς!");
+		}else if(response=="failed"){
+			alert("Η Προσθήκη Του Σταθμού Απέτυχε!");
+		}
+	}
+	
+	var cntClks2=0;
+	var latitude2;
+	var longitude2;
+	function deleteStation(){
+		document.getElementById('remSt').style.display='none';
+		document.getElementById('googleMap2').style.display='none';
+		cntClks2=0;
+		var resAPIkey = window.localStorage.APIkey;
+		var removestation = "active";
+		var remStat = delStation.onoma_stathmou.value;
+		var newStationId = delStation.id_stathmou.value;
+		var location = delStation.latit.value+", "+delStation.longi.value;
+		var params = "removestation="+removestation+"&APIkey="+resAPIkey+"&stathmosName="+remStat+"&stathmosId="+newStationId+"&stathmosLocation="+location;
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.onreadystatechange = function(){
+			if(xmlhttp.readyState == 4 && xmlhttp.status == 200){
+				checkRemSuccess(xmlhttp.responseText)
+			}
+		};
+		xmlhttp.open('POST', "http://localhost/panos/teleutaia_script/systemServer.php", true);
+		xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		xmlhttp.send(params);
+		delStation.reset();
+		
+	}
+	function newF2(){
+		cntClks2++;
+		if(cntClks2%2==1){
+		var myCenter=new google.maps.LatLng(37.967, 23.717);
+		var marker,i,out,arr;
+		var stathmos = "stathmoi";
+		var link = "http://localhost/panos/teleutaia_script/ypeka_api.php?"+"stathmoi="+stathmos+"&APIkey="+window.localStorage.APIkey;
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.onreadystatechange = function(){
+			if(xmlhttp.readyState==4 && xmlhttp.status==200){
+				arr=JSON.parse(xmlhttp.responseText);
+			}
+		};
+		xmlhttp.open("GET",link,false);
+		xmlhttp.send();
+		var map = {center:myCenter, zoom:6, mapTypeId:google.maps.MapTypeId.ROADMAP};
+		var map = new google.maps.Map(document.getElementById("googleMap2"),map);
+		for(i = 0; i < arr.length; i++) {
+			out = arr[i].Location;
+			out = out.split(",");
+			marker = new google.maps.Marker({
+			position: new google.maps.LatLng(parseFloat(out[0]), parseFloat(out[1])),
+			customInfoName : arr[i].Name,
+			customInfoId : arr[i].Id
+			});
+			marker.setMap(map);
+		
+			google.maps.event.addListener(marker,"click",function(event){
+			latitude = event.latLng.lat().toFixed(4);
+			longitude = event.latLng.lng().toFixed(4);
+			delStation.latit.value = latitude;
+			delStation.longi.value = longitude;
+			delStation.onoma_stathmou.value = this.customInfoName;
+			delStation.id_stathmou.value = this.customInfoId;
+		});
+		}
+		document.getElementById('googleMap2').style.display='block';
+		} else{
+			document.getElementById('googleMap2').style.display='none';
+		}
+	}
+	function checkRemSuccess(response){
+		if(response=="success"){
+			alert("Ο Σταθμός Διαγράφηκε Επιτυχώς!");
+		}else if(response=="failed"){
+			alert("Η Διαγραφή Του Σταθμού Απέτυχε!");
+		}
+	}
+	var cntClks3=0;
+	function uploadData(){
+		document.getElementById('divUpload').style.display='none';
+		document.getElementById('googleMap3').style.display='none';
+		cntClks3=0;
+		var resAPIkey = window.localStorage.APIkey;
+		var upload = "active";
+		var stathmosName = upldData.onoma_stathmou.value;
+		var stathmosId = upldData.id_stathmou.value;
+		var etos = upldData.etos.value;
+		var type = upldData.typos.value;
+		var params = new FormData();
+		params.append('upload',upload);
+		params.append('stathmos_Name',stathmosName);
+		params.append('stathmos_Id',stathmosId);
+		params.append('etos',etos);
+		params.append('type',type);
+		params.append('API_key',resAPIkey);
+		params.append('userfile',document.getElementById("userfile").files[0]);
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.onreadystatechange = function(){
+			if(xmlhttp.readyState == 4 && xmlhttp.status == 200){
+				checkUploadSuccess(xmlhttp.responseText)
+			}
+		};
+		xmlhttp.open('POST', "http://localhost/panos/teleutaia_script/systemServer.php", false);
+		xmlhttp.send(params);
+		upldData.reset();
+	}
+	function newF3(){
+		cntClks3++;
+		if(cntClks3%2==1){
+		var myCenter=new google.maps.LatLng(37.967, 23.717);
+		var marker,i,out,arr;
+		var stathmos = "stathmoi";
+		var link = "http://localhost/panos/teleutaia_script/ypeka_api.php?"+"stathmoi="+stathmos+"&APIkey="+window.localStorage.APIkey;
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.onreadystatechange = function(){
+			if(xmlhttp.readyState==4 && xmlhttp.status==200){
+				arr=JSON.parse(xmlhttp.responseText);
+			}
+		};
+		xmlhttp.open("GET",link,false);
+		xmlhttp.send();
+		var map = {center:myCenter, zoom:6, mapTypeId:google.maps.MapTypeId.ROADMAP};
+		var map = new google.maps.Map(document.getElementById("googleMap3"),map);
+		for(i = 0; i < arr.length; i++) {
+			out = arr[i].Location;
+			out = out.split(",");
+			marker = new google.maps.Marker({
+			position: new google.maps.LatLng(parseFloat(out[0]), parseFloat(out[1])),
+			customInfoName : arr[i].Name,
+			customInfoId : arr[i].Id
+			});
+			marker.setMap(map);
+		
+			google.maps.event.addListener(marker,"click",function(event){
+			upldData.onoma_stathmou.value = this.customInfoName;
+			upldData.id_stathmou.value = this.customInfoId;
+		});
+		}
+		document.getElementById('googleMap3').style.display='block';
+		} else{
+			document.getElementById('googleMap3').style.display='none';
+		}
+	}
+	
+	function checkUploadSuccess(response){
+		alert(response);
+	}
+	
+	function statisticsBtnAdmin(){
+		inter = setInterval(function(){
+			var resAPIkey = window.localStorage.APIkey;
+			var privil = window.localStorage.resPriv;
+			var statistika = "active";
+			var params = "statistika="+statistika+"&APIkey="+resAPIkey+"&privileges="+privil;
+			var xmlhttp = new XMLHttpRequest();
+			xmlhttp.onreadystatechange = function(){
+				if(xmlhttp.readyState == 4 && xmlhttp.status == 200){
+					adminStats(xmlhttp.responseText);
+					}
+			};
+			xmlhttp.open("POST", "http://localhost/panos/teleutaia_script/systemServer.php", true);
+			xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			xmlhttp.send(params);
+		}, 1500); document.getElementById('adminTable3').style.display='block';
+	}
+	function adminStats(response){
+		var stats = JSON.parse(response);
+		var i;
+		var pinakas = "<h3 style='position:absolute; left:60%; top:2%;'>"+
+		"Συνολικά Στατιστικά</h3>"+
+		"<table class='table2'>"+
+		"<tr><th>APIkey(Έχουν Εκδοθεί)</th><th>Αιτήματα Σταθμοί</th>"+
+		"<th>Αιτήματα Μ.Τ</th><th>Αιτήματα Α.Τ</th><th>Σύνολο</th></tr>"+
+		"<tr><td>"+stats[0].arithmos_APIkeys+"</td><td>"+
+		stats[0].synolo_stathmoi+"</td><td>"+
+		stats[0].synolo_mesi_timi+"</td><td>"+
+		stats[0].synolo_apoluti_timi+"</td><td>"+
+		stats[0].synolika_aithmata+"</td></tr>"+
+		"</table>"+
+		"<h3 style='position:absolute; left:60%; top:23%;'>Ακολουθούν Τα 10 APIkeys Με Τα Περισσότερα Αιτήματα</h3>"+
+		"<table class ='table2' style='top:30%'>"+
+		"<tr><th>APIkey</th><th>Αιτήματα Σταθμοί</th>"+
+		"<th>Αιτήματα Μ.Τ</th><th>Αιτήματα Α.Τ</th><th>Σύνολο</th></tr>";
+		for(i=1; i < stats.length; i++){
+			pinakas += "<tr><td>"+stats[i].APIkey+"</td>"+
+			"<td>"+stats[i].requests_stathmoi+"</td>"+
+			"<td>"+stats[i].requests_mesi_timi+"</td>"+
+			"<td>"+stats[i].requests_apoluti_timi+"</td>"+
+			"<td>"+stats[i].synolo+"</td></tr>";
+		}
+		pinakas += "</table>";
+		document.getElementById("adminTable3").innerHTML = pinakas;
+	}
+	function logOut(){
+		if(window.confirm("Τερματισμός Συνεδρίας;")===true){
+			window.localStorage.clear();
+			window.location = 'http://localhost/panos/teleutaia_script/accessSite.html';
+		}
+	}
+	</script>
+	<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAhrG0ZVjkExywcZl2Mb8U196gcGWaBP_4" type = "text/javascript">
+	</script>
+	<body>
+	  <h2 style="text-align:left; position:fixed; top:0;">
+	  Υπηρεσίες Διαχειριστή
+	  </h2>
+	  
+	  <button onclick="document.getElementById('addSt').style.display='block'" style ="position:fixed; bottom:77%; left:0; width:15%;">Προσθήκη Σταθμού</button>
+	
+	  <button onclick="document.getElementById('remSt').style.display='block'" style ="position:fixed; bottom:62%; left:0; width:15%;">Διαγραφή Σταθμού</button>
+		
+	  <button onclick="document.getElementById('divUpload').style.display='block'" style="position:fixed; width:15%; bottom:47%; left:0;">Μεταφόρτωση Αρχείου</button>
+	  
+	  <button onclick="statisticsBtnAdmin()" style="position:fixed; width:15%; bottom:32%; left:0;">Εμφάνιση Στατιστικών</button>
+	  
+	  <h2 style="position:fixed; bottom:15%; font-size:30px; position:fixed;">Έξοδος</h2>
+		
+	  <button onclick="logOut()" style="position:fixed; width:15%; bottom:7%; left:0; background-color:red;">Αποσύνδεση</button>
+		
+	  <div id="addSt" class="modal">
+	   <form name ="newStation" class="modal-content animate" style="height:auto; width:45%;">
+	    <div class="imgcontainer">
+         <span onclick="document.getElementById('addSt').style.display='none'; document.getElementById('googleMap').style.display='none'; cntClks=0; newStation.reset();" class="close" title="Close Modal">×</span>
+        </div>
+	    <div class = "container">
+	     <label><b>Όνομα Σταθμού</b></label>
+	     <input type = "text" name = "onoma_stathmou"/>
+	     <label><b>Κωδικός Σταθμού</b></label>
+	     <input type = "text" name = "id_stathmou"/>
+	     <label><b>Γεωγραφικό Πλάτος</b></label>
+	     <input type = "text" name = "latit"/>
+	     <label><b>Γεωγραφικό Μήκος</b></label>
+	     <input type = "text" name = "longi"/>
+	     <div class = "clearfix">
+	       <button type="button" onClick="document.getElementById('addSt').style.display='none';document.getElementById('googleMap').style.display='none'; cntClks=0; newStation.reset();" class = "cancelbtn">Άκυρο</button>
+	 	   <button type="button" onClick="document.getElementById('googleMap').style.display='block';newF();" class = "linkbtn">Χάρτης</button>
+	 	   <button type="button" onClick="addStation(this.form);newStation.reset();">Προσθήκη</button>
+		 </div>
+		 <div class="container2" id="googleMap"></div>
+	    </div>
+	   </form>
+	  </div>
+	 
+	 
+	  <div id="remSt" class="modal">
+	   <form name ="delStation" class="modal-content animate" style="height:auto; width:45%;">
+	    <div class="imgcontainer">
+         <span onclick="document.getElementById('remSt').style.display='none'; document.getElementById('googleMap2').style.display='none'; cntClks2=0; delStation.reset();" class="close" title="Close Modal">×</span>
+        </div>
+	    <div class = "container">
+	     <label><b>Όνομα Σταθμού</b></label>
+	     <input type = "text" name = "onoma_stathmou"/>
+	     <label><b>Κωδικός Σταθμού</b></label>
+	     <input type = "text" name = "id_stathmou"/>
+	     <label><b>Γεωγραφικό Πλάτος</b></label>
+	     <input type = "text" name = "latit"/>
+	     <label><b>Γεωγραφικό Μήκος</b></label>
+	     <input type = "text" name = "longi"/>
+	     <div class = "clearfix">
+	       <button type="button" onClick="document.getElementById('remSt').style.display='none';document.getElementById('googleMap2').style.display='none'; cntClks2=0; delStation.reset();" class = "cancelbtn">Άκυρο</button>
+	 	   <button type="button" onClick="document.getElementById('googleMap2').style.display='block';newF2();" class = "linkbtn">Χάρτης</button>
+	 	   <button type="button" onClick="deleteStation(this.form);delStation.reset();">Διαγραφή</button>
+	 	 </div>
+		 <div class="container2" id="googleMap2"></div>
+	   </div>
+	  </form>
+	  </div>
+	  
+	  <div id="divUpload" class="modal">
+	   <form name="upldData" class="modal-content animate" style="height:auto; width:45%;">
+	    <div class="imgcontainer">
+         <span onclick="document.getElementById('divUpload').style.display='none'; document.getElementById('googleMap3').style.display='none'; cntClks3=0; upldData.reset();" class="close" title="Close Modal">×</span>
+        </div>
+	    <div class = "container">
+	     <label><b>Όνομα Σταθμού</b></label>
+	     <input type = "text" name = "onoma_stathmou"/>
+	     <label><b>Κωδικός Σταθμού</b></label>
+	     <input type = "text" name = "id_stathmou"/>
+	     <label><b>Έτος</b></label>
+	     <input type = "text" name = "etos"/>
+	     <label><b>Τύπος Ρύπου</b></label>
+	     <input type = "text" name = "typos"/>
+		 <label><b>Επιλέξτε Αρχείο</b></label><br>
+		 <input type = "file" name = "userfile" id="userfile"/>
+	     <div class = "clearfix">
+	       <button type="button" onClick="document.getElementById('divUpload').style.display='none';document.getElementById('googleMap3').style.display='none'; cntClks3=0; upldData.reset();" class = "cancelbtn">Άκυρο</button>
+	 	   <button type="button" onClick="document.getElementById('googleMap3').style.display='block';newF3();" class = "linkbtn">Χάρτης</button>
+	 	   <button type="button" onClick="uploadData(this.form);upldData.reset();">Μεταφόρτωση</button>
+	 	 </div>
+		 <div class="container2" id="googleMap3"></div>
+	    </div>
+	   </form>
+	  </div>
+	  
+	  <div id="adminTable3" class="container" onclick="clearInterval(inter);document.getElementById('adminTable3').style.display='none';"></div>
+	  </body>
+
+</div>
+
+<div id = "userPage">
+	<script>
+	function getApiKey(){
+		if(window.confirm(" Στο επόμενο παράθυρο θα παρουσιαστεί το APIkey που σας εχει αποδοθεί \n αυτόματα κατά την εγγραφή σας στο σύστημα.\n"+
+		" Μπορειτε να το αντιγράψετε για να χρησιμοποιήσετε τις υπηρεσίες του API μας και εκτός της σελίδας!")===true){
+			window.prompt("Αντιγράψτε το APIkey που ακολουθεί:",window.localStorage.APIkey);
+		}
+	}
+	function stathmoiEmfanish(){
+		var stathmos = "stathmoi";
+		var link = "http://localhost/panos/teleutaia_script/ypeka_api.php?"+"stathmoi="+stathmos+"&APIkey="+window.localStorage.APIkey;
+		if(Stathmoi.link.value==0){
+			var xmlhttp = new XMLHttpRequest();
+			xmlhttp.onreadystatechange = function() {
+				if (xmlhttp.readyState == 4 && xmlhttp.status == 200){
+					responseStathmoi(xmlhttp.responseText);
+				}
+			}
+			xmlhttp.open("GET", link, true);
+			xmlhttp.send();
+		}else if(Stathmoi.link.value==1){
+			window.prompt("Αντιγραψτε το Link:\n",link);
+		}
+	}
+	function responseStathmoi(response){
+		var arr = JSON.parse(response);
+		var i;
+		var out = "<h1 style='position:absolute; top:20%; left:25%;'>"+
+		"Σταθμοί Καταγραφής Ρύπων"+
+		"</h1>"+
+		"<tr><th>"+
+		"</tr></th>"+
+		"<table>" +
+		"<tr><th>"+
+		"Όνομα"+
+		"</th><th>"+
+		"Κωδικός"+
+		"</th><th>"+
+		"Συντεταγμένες"+
+		"</th></tr>";
+		for(i = 0; i < arr.length; i++) {
+			out +=  "<tr><td>" +
+			arr[i].Name +
+			"</td><td>" +
+			arr[i].Id +
+			"</td><td>" +
+			arr[i].Location +
+			"</td></tr>";
+		}
+		out += "</table>";
+		document.getElementById("middle").innerHTML = out;
+		document.getElementById("middle").style.display = 'block';
+		}
+	
+	function meshEmfanish() {
+		var eidos = form1.eidos_rupou.value;
+		var mera = form1.hmera.value;
+		var mhna = form1.mhnas.value;
+		var eth = form1.etos.value;
+		var id_sta = form1.id_stathmou.value;
+		var epilogh1 = "meanStd";
+		var link = "http://localhost/panos/teleutaia_script/ypeka_api.php?"+
+		"meanStd="+epilogh1+"&eidos_rupou="+eidos+"&id_stathmou="+id_sta+"&hmera="+mera+"&mhnas="+mhna+"&etos="+eth+"&APIkey="+window.localStorage.APIkey;
+		if(form1.link.value==0){
+			var xmlhttp = new XMLHttpRequest();
+			xmlhttp.onreadystatechange = function() {
+				if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+					responseMesh(xmlhttp.responseText);
+				}
+			}
+			xmlhttp.open("GET", link, true);
+			xmlhttp.send();
+			form1.reset();
+		}else if(form1.link.value==1){
+			window.prompt("Αντιγραψτε το Link:\n",link);
+			form1.reset();
+		}
+	}
+	function responseMesh(response) {
+		if(response=="[]"){
+			alert("Η Αναζήτηση Δεν Επέστρεψε Στοιχεία!");
+			return;
+		}
+		try{
+			var arr = JSON.parse(response);
+			var i;
+			var cntToShow = 0;
+			var out = "<h1 style='position:absolute; top:20%; left:25%;'>"+
+			"Μέση Τιμή - Διακύμανση"+
+			"</h1>"+
+			"<table>" +
+			"<tr><th>"+
+			"Όνομα"+
+			"</th><th>"+
+			"Μέση Τιμή"+
+			"</th><th>"+
+			"Διακύμανση"+
+			"</th><th>"+
+			"Συντεταγμένες Σταθμού"+
+			"</th></tr>";
+			for(i = 0; i < arr.length; i++) {
+				var checkIfEmpty = arr[i].Mean;
+				if(checkIfEmpty!=""){
+					cntToShow++;
+					out +=  "<tr><td>" +
+					arr[i].Name +
+					"</td><td>" +
+					arr[i].Mean +
+					"</td><td>" +
+					arr[i].Std +
+					"</td><td>"+
+					arr[i].Location +
+					"</td></tr>";
+				}
+			}
+			out += "</table>";
+			if(cntToShow>0){
+				document.getElementById("middle").innerHTML = out;
+				document.getElementById("middle").style.display = 'block';
+			} else {
+				alert("Ελλειπούσες Τιμές Για Τη Συγκεκριμένη Περίοδο!");
+				return;
+			}
+		} catch(err) {
+			alert("Δεν Δώσατε Τα Ελάχιστα Απαραίτητα Στοιχεία Για Την Περάτωση Της Αναζήτησης!");
+			return;
+		}
+	}
+	
+	function apolythEmfanish() {
+		var eidos = form2.eidos_rupou.value;
+		var mera = form2.hmera.value;
+		var mhna = form2.mhnas.value;
+		var eth = form2.etos.value;
+		var wra = form2.wra.value;
+		var id_sta = form2.id_stathmou.value;
+		var epilogh2 = "apolyth";
+		var link = "http://localhost/panos/teleutaia_script/ypeka_api.php?"+"apolyth="+epilogh2+"&eidos_apolyth="+eidos+"&id_apolyth="+id_sta+
+		"&mera_apolyth="+mera+"&month_apolyth="+mhna+"&etos_apolyth="+eth+"&time="+wra+"&APIkey="+window.localStorage.APIkey;
+		if(form2.link.value==0){
+			var xmlhttp = new XMLHttpRequest();
+			xmlhttp.onreadystatechange = function() {
+				if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+					responseApolyth(xmlhttp.responseText);
+				}
+			}
+			xmlhttp.open("GET", link, true);
+			xmlhttp.send();
+			form2.reset();
+		} else if(form2.link.value==1){
+			window.prompt("Αντιγραψτε το Link:\n",link);
+			form2.reset();
+		}
+	}
+	function responseApolyth(response) {
+		if(response=="[]"){
+			alert("Η Αναζήτηση Δεν Επέστρεψε Στοιχεία!");
+			return;
+		}
+		try{
+			var arr = JSON.parse(response);
+			var i;
+			var cntToShow = 0;
+			var out = "<h1 style='position:absolute; top:20%; left:25%;'>"+
+			"Απόλυτη Τιμή"+
+			"</h1>"+
+			"<table id='apol'>" +
+			"<tr><th>"+
+			"Όνομα"+
+			"</th><th>"+
+			"Απόλυτη Τιμή"+
+			"</th><th>"+
+			"Συντεταγμένες Σταθμού"+
+			"</th></tr>";
+			for(i = 0; i < arr.length; i++) {
+				var checkIfEmpty = arr[i].Apolyth;
+				if(checkIfEmpty!=""){
+					cntToShow++;
+					out +=  "<tr><td>" +
+					arr[i].Name +
+					"</td><td>" +
+					arr[i].Apolyth +
+					"</td><td>" +
+					arr[i].Location +
+					"</td></tr>";
+				}
+			}
+			out += "</table>";
+			if(cntToShow>0){
+				document.getElementById("middle").innerHTML = out;
+				document.getElementById("middle").style.display = 'block';
+			} else {
+				alert("Ελλειπούσες Τιμές Για Τη Συγκεκριμένη Περίοδο!");
+				return;
+			}
+		}catch(err){
+			alert("Δεν Δώσατε Τα Ελάχιστα Απαραίτητα Στοιχεία Για Την Περάτωση Της Αναζήτησης!");
+			return;
+		}
+	}
+
+	var countingClicks = 0;
+	var inter;
+	function statisticsBtn(){
+		countingClicks = countingClicks+1;
+			inter = setInterval(function(){
+			var resAPIkey = window.localStorage.APIkey;
+			var privil = window.localStorage.resPriv;
+			var statistika = "active";
+			var params = "statistika="+statistika+"&APIkey="+resAPIkey+"&privileges="+privil;
+			var xmlhttp = new XMLHttpRequest();
+			xmlhttp.onreadystatechange = function(){
+				if(xmlhttp.readyState == 4 && xmlhttp.status == 200){
+					var stats = JSON.parse(xmlhttp.responseText);
+					var pinakas = "<h3 style='text-align:right;'>"+
+					"Στατιστικά</h3>"+
+					"<table class='table2'>"+
+					"<tr><th>APIkey</th><th>Αιτηματα Σταθμοι</th>"+
+					"<th>Αιτηματα Μ.Τ</th><th>Αιτηματα Α.Τ</th><th>Συνολο</th></tr>"+
+					"<tr><td>"+stats.APIkey+"</td>"+
+					"<td>"+stats.requests_stathmoi+"</td>"+
+					"<td>"+stats.requests_mesi_timi+"</td>"+
+					"<td>"+stats.requests_apoluti_timi+"</td>"+
+					"<td>"+stats.synolo+"</td></tr></table>";
+					document.getElementById("table3").innerHTML = pinakas;
+				}
+			};
+			xmlhttp.open("POST", "http://localhost/panos/teleutaia_script/systemServer.php", true);
+			xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			xmlhttp.send(params);
+		}, 1500); document.getElementById('table3').style.display='block';
+	}
+	function odhgiesXrhshs(){
+		var newWin = window.open('','_blank','width=600,height=600');
+		var styleSheet = document.getElementById("userhead").outerHTML;
+		newWin.document.write(styleSheet);
+		var text = "<h2>Ευχαριστούμε που χρησιμοποιείτε τις υπηρεσίες μας.</h2>"+
+		"<p>(1)Τα κουμπιά στο αριστερό μέρος της σελίδας είναι για να κάνετε χρήση των υπηρεσιών του API.</p>"+
+		"<p>(2)Οι υπηρεσίες του API μπορούν να γίνουν στη παρούσα σελίδα ή και εκτός.</p>"+
+		"<p>(3)Για τη διευκόλυνσή σας προσφέρονται φόρμες αναζήτησης με τη δυνατότητα να επιλέξετε τη χορήγηση του πρότυπου Link για χρήση του API.</p>"+
+		"<p>(4)Συνίσταται αρχικά να χρησιμοποιείτε τα κουμπιά για τα Link μέχρι να μπορείτε να συντάξετε μόνοι το απαραίτητο Link καθε φορά.</p>"+
+		"<p>(5)Όταν επιλέγετε να εμφανιστεί κάποια αναζήτηση στη παρούσα ιστοσελίδα μπορείτε εφόσον παρουσιαστούν τα αποτελέσματα να τα εξαφανίσετε από την οθόνη"+
+		" με ενα κλικ πανω τους.</p>";
+		newWin.document.write(text);
+		newWin.focus();
+	}
+	function logOut(){
+		if(window.confirm("Τερματισμός Συνεδρίας;")===true){
+			window.localStorage.clear();
+			window.location = 'http://localhost/panos/teleutaia_script/accessSite.html';
+		}
+	}
+	</script>
+	<body>
+	<h2 style="text-align:left; position:fixed; top:0;">
+	Υπηρεσίες Για Το Κοινό
+	</h2>
+	
+	<button onclick="getApiKey()" style="position:fixed;width:15%; bottom:80%; left:0;">Εμφάνιση APIkey</button>
+	
+	<button onclick="document.getElementById('id01').style.display='block'" style="position:fixed;width:15%; bottom:68%; left:0;">Εμφάνιση Σταθμών</button>
+	        
+	<button onclick="document.getElementById('id02').style.display='block'" style="position:fixed;width:15%; bottom:56%; left:0;">Μέση Τιμή - Διακύμανση</button>
+	        
+	<button onclick="document.getElementById('id03').style.display='block'" style="position:fixed;width:15%; bottom:44%; left:0;">Απόλυτη Τιμή</button>
+	
+	<button onclick="statisticsBtn()" style="position:fixed; width:15%; bottom:32%; left:0;">Εμφάνιση Στατιστικών</button>
+	
+	<h2 style="position:fixed; bottom:15%; font-size:30px; position:fixed;">Έξοδος</h2>
+	
+	<button onclick="logOut()" style="position:fixed; width:15%; bottom:7%; left:0; background-color:red;">Αποσύνδεση</button>
+	
+	<div id = "id01" class = "modal">
+	 <form name="Stathmoi" class = "modal-content animate">
+	  <div class="imgcontainer">
+        <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">×</span>
+      </div>
+	  <div class = "container">
+	   <input type = "hidden" name = "link" value="0"/>
+	    <div class = "clearfix">
+	      <button type="button" onClick="document.getElementById('id01').style.display='none'" class = "cancelbtn">Άκυρο</button>
+		  <button type="button" onClick="Stathmoi.link.value=1;stathmoiEmfanish(this.form);document.getElementById('id01').style.display='none'" class = "linkbtn">
+		  Link - Για χρήση εκτός σελίδας</button>
+	      <button type="button" onClick = "Stathmoi.link.value=0;stathmoiEmfanish(this.form);document.getElementById('id01').style.display='none';">Αναζήτηση</button>
+	    </div>
+	  </div>
+	 </form>
+	</div>
+
+	
+	<div id = "id02" class = "modal">
+	 <form name="form1" class = "modal-content animate">
+	  <div class="imgcontainer">
+        <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">×</span>
+      </div>
+	  <div class = "container">
+	   <label><b>Τύπος Ρύπου</b></label>
+	   <input type = "text" name = "eidos_rupou"/>
+	   <label><b>Κωδικός Σταθμού</b></label>
+	   <input type = "text" name = "id_stathmou"/>
+	   <label><b>Ημέρα</b></label>
+	   <input type = "text" name = "hmera"/>
+	   <label><b>Μήνας</b></label>
+	   <input type = "text" name = "mhnas"/>
+	   <label><b>Έτος</b></label>
+	   <input type = "text" name = "etos"/>
+	   <input type = "hidden" name = "link" value="0"/>
+	    <div class = "clearfix">
+	      <button type="button" onClick="document.getElementById('id02').style.display='none'" class = "cancelbtn">Άκυρο</button>
+		  <button type="button" onClick="form1.link.value=1;meshEmfanish(this.form);document.getElementById('id02').style.display='none'" class = "linkbtn">
+		  Link - Για χρήση εκτός σελίδας</button>
+	      <button type="button" onClick = "form1.link.value=0;meshEmfanish(this.form);document.getElementById('id02').style.display='none';">Αναζήτηση</button>
+	    </div>
+	  </div>
+	 </form>
+	</div>
+	<div id = "id03" class = "modal">
+	 <form name="form2" class = "modal-content animate">
+	  <div class="imgcontainer">
+        <span onclick="document.getElementById('id03').style.display='none'" class="close" title="Close Modal">×</span>
+      </div>
+	  <div class = "container">
+	   <label><b>Τύπος Ρύπου</b></label>
+	   <input type = "text" name = "eidos_rupou"/>
+	   <label><b>Κωδικός Σταθμού</b></label>
+	   <input type = "text" name = "id_stathmou"/>
+	   <label><b>Ώρα</b></label>
+	   <input type = "text" name = "wra"/>
+	   <label><b>Ημέρα</b></label>
+	   <input type = "text" name = "hmera"/>
+	   <label><b>Μήνας</b></label>
+	   <input type = "text" name = "mhnas"/>
+	   <label><b>Έτος</b></label>
+	   <input type = "text" name = "etos"/>
+	   <input type = "hidden" name = "link" value = "0"/>
+	    <div class = "clearfix">
+	      <button type="button" onClick="document.getElementById('id03').style.display='none'" class = "cancelbtn">Άκυρο</button>
+	      <button type="button" onClick="form2.link.value=1;apolythEmfanish(this.form);document.getElementById('id03').style.display='none'" class = "linkbtn">
+		  Link - Για χρήση εκτός σελίδας</button>
+	      <button type="button" onClick = "form2.link.value=0;apolythEmfanish(this.form);document.getElementById('id03').style.display='none';">Αναζήτηση</button>
+	    </div>
+	  </div>
+	 </form>
+	</div>
+	 <div id="table3" class="container" onclick="clearInterval(inter);document.getElementById('table3').style.display='none';">
+	 </div>
+	 <div id = "middle" class="table" onclick="document.getElementById('middle').style.display='none'"></div>
+	 <a style="position:fixed; bottom:0; right:0;" id="myLink" href="#" onclick="odhgiesXrhshs();return false;">Οδηγίες Χρήσης Ιστοσελίδας</a>
+	</body>
+
+</div>
+
+
+</html>
